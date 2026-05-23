@@ -2,201 +2,893 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Jalex Shu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jalex Shu | Mathematics + AI</title>
+  <meta name="description" content="Jalex Shu's personal homepage: mathematics, AI, language learning, and MV editing." />
 
   <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
+    :root {
+      --bg: #08080b;
+      --card: rgba(255, 255, 255, 0.06);
+      --card-strong: rgba(255, 255, 255, 0.1);
+      --text: #f7f7fb;
+      --muted: #a7a7b4;
+      --line: rgba(255, 255, 255, 0.13);
+      --accent: #9d7cff;
+      --accent2: #ff79c6;
+      --accent3: #7cf7d4;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
     }
 
-    body{
-      background:#0a0a0a;
-      color:white;
-      font-family:Arial, Helvetica, sans-serif;
-      line-height:1.6;
+    body.light {
+      --bg: #f5f3ff;
+      --card: rgba(255, 255, 255, 0.78);
+      --card-strong: rgba(255, 255, 255, 0.95);
+      --text: #171421;
+      --muted: #5d586b;
+      --line: rgba(30, 20, 60, 0.14);
+      --accent: #6d4cff;
+      --accent2: #d62483;
+      --accent3: #0aa985;
+      --shadow: 0 24px 70px rgba(89, 67, 140, 0.18);
     }
 
-    .container{
-      max-width:1100px;
-      margin:auto;
-      padding:40px 20px;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    .hero{
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
+    html {
+      scroll-behavior: smooth;
     }
 
-    h1{
-      font-size:72px;
-      margin-bottom:20px;
+    body {
+      background:
+        radial-gradient(circle at 15% 10%, rgba(157, 124, 255, 0.25), transparent 30%),
+        radial-gradient(circle at 85% 20%, rgba(255, 121, 198, 0.18), transparent 28%),
+        radial-gradient(circle at 50% 90%, rgba(124, 247, 212, 0.12), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      line-height: 1.65;
+      overflow-x: hidden;
+      transition: background 0.35s ease, color 0.35s ease;
     }
 
-    .gradient{
-      background:linear-gradient(90deg,#7c83ff,#d86bff,#ff9eb5);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
-    p{
-      color:#b3b3b3;
-      font-size:20px;
-      max-width:700px;
+    .noise {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      opacity: 0.05;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      z-index: 0;
     }
 
-    .buttons{
-      margin-top:40px;
-      display:flex;
-      gap:20px;
-      flex-wrap:wrap;
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
     }
 
-    .btn{
-      padding:14px 28px;
-      border-radius:999px;
-      text-decoration:none;
-      font-weight:bold;
-      transition:0.3s;
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: var(--text);
+      opacity: 0.45;
+      animation: floatStar linear infinite;
     }
 
-    .btn-primary{
-      background:white;
-      color:black;
+    @keyframes floatStar {
+      from { transform: translateY(100vh); }
+      to { transform: translateY(-10vh); }
     }
 
-    .btn-primary:hover{
-      opacity:0.8;
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 22px;
     }
 
-    .btn-secondary{
-      border:1px solid #333;
-      color:white;
+    .nav {
+      position: sticky;
+      top: 16px;
+      z-index: 20;
+      margin: 16px auto 0;
+      max-width: 1180px;
+      padding: 0 22px;
     }
 
-    .section{
-      padding:100px 0;
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      border: 1px solid var(--line);
+      background: rgba(20, 20, 30, 0.68);
+      backdrop-filter: blur(18px);
+      border-radius: 24px;
+      padding: 14px 16px;
+      box-shadow: var(--shadow);
     }
 
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:20px;
-      margin-top:40px;
+    body.light .nav-inner {
+      background: rgba(255, 255, 255, 0.68);
     }
 
-    .card{
-      background:#111;
-      border:1px solid #222;
-      border-radius:20px;
-      padding:30px;
-      transition:0.3s;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
     }
 
-    .card:hover{
-      transform:translateY(-5px);
-      border-color:#555;
+    .logo {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: white;
+      box-shadow: 0 14px 40px rgba(157, 124, 255, 0.35);
     }
 
-    h2{
-      font-size:42px;
-      margin-bottom:20px;
+    .links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
-    h3{
-      margin-top:20px;
-      margin-bottom:10px;
+    .links a,
+    .small-btn {
+      border: 1px solid var(--line);
+      background: var(--card);
+      color: var(--text);
+      padding: 9px 13px;
+      border-radius: 999px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform 0.2s ease, border 0.2s ease, background 0.2s ease;
     }
 
-    footer{
-      border-top:1px solid #222;
-      text-align:center;
-      padding:40px;
-      color:#777;
+    .links a:hover,
+    .small-btn:hover {
+      transform: translateY(-2px);
+      border-color: rgba(157, 124, 255, 0.7);
+      background: var(--card-strong);
+    }
+
+    .hero {
+      min-height: calc(100vh - 90px);
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 42px;
+      align-items: center;
+      padding: 80px 0 90px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      color: var(--muted);
+      padding: 10px 14px;
+      border-radius: 999px;
+      margin-bottom: 22px;
+      backdrop-filter: blur(14px);
+    }
+
+    h1 {
+      font-size: clamp(48px, 8vw, 96px);
+      line-height: 0.98;
+      letter-spacing: -0.07em;
+      margin-bottom: 26px;
+    }
+
+    .gradient {
+      background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .typing {
+      min-height: 34px;
+      color: var(--muted);
+      font-size: clamp(18px, 2.6vw, 24px);
+      max-width: 760px;
+      margin-bottom: 10px;
+    }
+
+    .cursor {
+      display: inline-block;
+      margin-left: 3px;
+      animation: blink 0.8s infinite;
+      color: var(--accent2);
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .hero-text {
+      color: var(--muted);
+      font-size: 19px;
+      max-width: 740px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 34px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border-radius: 999px;
+      padding: 14px 22px;
+      font-weight: 800;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-primary {
+      background: var(--text);
+      color: var(--bg);
+      box-shadow: 0 18px 50px rgba(157, 124, 255, 0.24);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--line);
+      background: var(--card);
+      color: var(--text);
+    }
+
+    .glass-card {
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: 34px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .profile-card {
+      padding: 22px;
+      transform: rotate(1deg);
+    }
+
+    .profile-inner {
+      border-radius: 26px;
+      background: rgba(0, 0, 0, 0.28);
+      padding: 24px;
+      overflow: hidden;
+    }
+
+    body.light .profile-inner {
+      background: rgba(255, 255, 255, 0.45);
+    }
+
+    .window-dots {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent2);
+    }
+
+    .dot:nth-child(2) { background: #ffd166; }
+    .dot:nth-child(3) { background: var(--accent3); }
+
+    pre {
+      overflow: auto;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .stat {
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: 18px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 24px;
+      color: var(--text);
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    section {
+      padding: 88px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .section-note {
+      color: var(--muted);
+      max-width: 560px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: 28px;
+      padding: 24px;
+      backdrop-filter: blur(16px);
+      transition: transform 0.22s ease, border 0.22s ease, background 0.22s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(157, 124, 255, 0.65);
+      background: var(--card-strong);
+    }
+
+    .icon {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(157, 124, 255, 0.22), rgba(255, 121, 198, 0.16));
+      margin-bottom: 18px;
+      font-weight: 900;
+      color: var(--text);
+    }
+
+    .card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .card p,
+    .timeline p,
+    .contact p {
+      color: var(--muted);
+    }
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .filter-btn {
+      border: 1px solid var(--line);
+      background: var(--card);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor: pointer;
+    }
+
+    .filter-btn.active {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, rgba(157, 124, 255, 0.3), rgba(255, 121, 198, 0.18));
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .project {
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .tag {
+      display: inline-flex;
+      width: fit-content;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 22px;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+    }
+
+    .timeline .card {
+      position: relative;
+    }
+
+    .timeline .card::before {
+      content: "";
+      position: absolute;
+      top: 28px;
+      left: 24px;
+      width: 9px;
+      height: 9px;
+      background: var(--accent3);
+      border-radius: 50%;
+      box-shadow: 0 0 0 7px rgba(124, 247, 212, 0.12);
+    }
+
+    .timeline h3 {
+      padding-left: 24px;
+    }
+
+    .quote {
+      padding: 34px;
+      font-size: clamp(24px, 4vw, 42px);
+      line-height: 1.18;
+      letter-spacing: -0.04em;
+    }
+
+    .quote small {
+      display: block;
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 16px;
+      letter-spacing: 0;
+    }
+
+    .contact {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: 18px;
+      padding: 14px;
+      margin-top: 12px;
+      word-break: break-all;
+    }
+
+    .copy {
+      border: 0;
+      border-radius: 999px;
+      background: var(--text);
+      color: var(--bg);
+      padding: 8px 11px;
+      cursor: pointer;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 28px;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--text);
+      color: var(--bg);
+      border-radius: 999px;
+      padding: 12px 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 99;
+      font-weight: 800;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      padding: 34px 0 52px;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .contact {
+        grid-template-columns: 1fr;
+      }
+
+      .grid,
+      .timeline {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .projects {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .nav-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .links {
+        justify-content: flex-start;
+      }
+
+      .grid,
+      .timeline,
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        letter-spacing: -0.04em;
+      }
     }
   </style>
 </head>
 
 <body>
+  <div class="noise"></div>
+  <div class="stars" id="stars"></div>
+  <div class="toast" id="toast">Copied!</div>
 
-  <div class="container hero">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top">
+        <span class="logo">J</span>
+        <span>Jalex Shu</span>
+      </a>
 
-    <div>
-      <div style="margin-bottom:20px;color:#999;">
-        ✦ Undergraduate Mathematics Student
-      </div>
-
-      <h1>
-        Jalex Shu
-        <span class="gradient">
-          <br>
-          Mathematics + AI
-        </span>
-      </h1>
-
-      <p>
-        Interested in algebra, optimization, artificial intelligence,
-        language learning, and video editing culture.
-      </p>
-
-      <div class="buttons">
-        <a class="btn btn-primary" href="#">
-          View Projects
-        </a>
-
-        <a class="btn btn-secondary" href="#">
-          Contact
-        </a>
+      <div class="links">
+        <a href="#interests">Interests</a>
+        <a href="#projects">Projects</a>
+        <a href="#timeline">Roadmap</a>
+        <a href="#contact">Contact</a>
+        <button class="small-btn" id="themeBtn">🌙 Theme</button>
       </div>
     </div>
+  </nav>
 
-  </div>
-
-  <div class="container section">
-
-    <h2>Interests</h2>
-
-    <div class="cards">
-
-      <div class="card">
-        <h3>∑ Mathematics</h3>
-        <p>
-          Algebra, structures, abstraction, and mathematical thinking.
+  <main id="top" class="wrap">
+    <section class="hero">
+      <div>
+        <div class="pill">✦ Undergraduate Mathematics Student · XJTLU</div>
+        <h1>
+          Jalex Shu<br />
+          <span class="gradient">Mathematics + AI</span>
+        </h1>
+        <div class="typing">
+          <span id="typed"></span><span class="cursor">|</span>
+        </div>
+        <p class="hero-text">
+          I explore algebra, optimization, artificial intelligence, languages, and visual culture.
+          This homepage is my small digital base for ideas, projects, notes, and experiments.
         </p>
+
+        <div class="buttons">
+          <a class="btn btn-primary" href="#projects">View Projects →</a>
+          <a class="btn btn-secondary" href="mailto:yuxuan.shu24@student.xjtlu.edu.cn">Email Me ✉</a>
+        </div>
       </div>
 
-      <div class="card">
-        <h3>&lt;/&gt; AI & Programming</h3>
-        <p>
-          Python, machine learning, automation, and coding projects.
-        </p>
+      <div class="glass-card profile-card">
+        <div class="profile-inner">
+          <div class="window-dots">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          </div>
+          <pre><code>const jalex = {
+  major: "Mathematics",
+  university: "XJTLU",
+  interests: [
+    "Algebra",
+    "Optimization",
+    "Artificial Intelligence",
+    "Languages",
+    "1980s HK / Japanese Music"
+  ],
+  currentMode: "building + learning"
+};</code></pre>
+
+          <div class="stats">
+            <div class="stat"><strong>∑</strong><span>Math</span></div>
+            <div class="stat"><strong>AI</strong><span>Tech</span></div>
+            <div class="stat"><strong>♪</strong><span>MV</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="interests">
+      <div class="section-head">
+        <div>
+          <div class="pill">What I like</div>
+          <h2>Interests</h2>
+        </div>
+        <p class="section-note">A mix of abstract thinking and creative experiments.</p>
       </div>
 
-      <div class="card">
-        <h3>文 Languages</h3>
-        <p>
-          English, Japanese, Cantonese, Vietnamese, Korean, and linguistics.
-        </p>
+      <div class="grid">
+        <article class="card">
+          <div class="icon">∑</div>
+          <h3>Pure Mathematics</h3>
+          <p>Algebra, structures, abstraction, linear algebra, probability, and mathematical reasoning.</p>
+        </article>
+        <article class="card">
+          <div class="icon">&lt;/&gt;</div>
+          <h3>AI & Programming</h3>
+          <p>Python, machine learning, automation, coding tools, and practical problem solving.</p>
+        </article>
+        <article class="card">
+          <div class="icon">文</div>
+          <h3>Languages</h3>
+          <p>English, Japanese, Cantonese, Vietnamese, Korean, and historical sound connections.</p>
+        </article>
+        <article class="card">
+          <div class="icon">♪</div>
+          <h3>Music & MV</h3>
+          <p>1980s Japanese and Hong Kong songs, subtitle style, nostalgia, and video editing.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="section-head">
+        <div>
+          <div class="pill">Clickable filters</div>
+          <h2>Project Ideas</h2>
+        </div>
+        <p class="section-note">Use the buttons to filter the cards. You can replace these with real links later.</p>
       </div>
 
-      <div class="card">
-        <h3>♪ Music & MV</h3>
-        <p>
-          1980s Japanese and Hong Kong music and video editing.
-        </p>
+      <div class="filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="math">Math</button>
+        <button class="filter-btn" data-filter="ai">AI</button>
+        <button class="filter-btn" data-filter="language">Language</button>
+        <button class="filter-btn" data-filter="mv">MV</button>
       </div>
 
-    </div>
+      <div class="projects">
+        <article class="card project" data-type="math">
+          <div>
+            <span class="tag">Math</span>
+            <h3>Mathematics Notes</h3>
+            <p>Clean notes on linear algebra, probability, differential equations, and abstract structures.</p>
+          </div>
+          <strong>Coming soon →</strong>
+        </article>
 
-  </div>
+        <article class="card project" data-type="ai">
+          <div>
+            <span class="tag">AI</span>
+            <h3>Python & AI Practice</h3>
+            <p>Small experiments with neural networks, numerical computing, and automation scripts.</p>
+          </div>
+          <strong>Coming soon →</strong>
+        </article>
+
+        <article class="card project" data-type="language">
+          <div>
+            <span class="tag">Language</span>
+            <h3>Language Learning Lab</h3>
+            <p>Japanese, Korean, Vietnamese, Cantonese, and English notes explained through Chinese thinking.</p>
+          </div>
+          <strong>Coming soon →</strong>
+        </article>
+
+        <article class="card project" data-type="mv">
+          <div>
+            <span class="tag">MV</span>
+            <h3>1980s Music Archive</h3>
+            <p>A future archive for Japanese and Hong Kong songs, covers, subtitles, and MV editing style.</p>
+          </div>
+          <strong>Coming soon →</strong>
+        </article>
+      </div>
+    </section>
+
+    <section id="timeline">
+      <div class="section-head">
+        <div>
+          <div class="pill">Personal roadmap</div>
+          <h2>Next Steps</h2>
+        </div>
+        <p class="section-note">A simple roadmap that makes the site feel alive.</p>
+      </div>
+
+      <div class="timeline">
+        <article class="card">
+          <h3>01 · Build</h3>
+          <p>Add real GitHub projects, math notes, and useful mini tools.</p>
+        </article>
+        <article class="card">
+          <h3>02 · Learn</h3>
+          <p>Improve AI, programming, English, Japanese, and mathematical maturity.</p>
+        </article>
+        <article class="card">
+          <h3>03 · Show</h3>
+          <p>Use this site as a portfolio for applications, friends, and future opportunities.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="glass-card quote">
+        “Think abstractly. Build clearly. Make boring knowledge look beautiful.”
+        <small>— Jalex Shu</small>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-head">
+        <div>
+          <div class="pill">Get in touch</div>
+          <h2>Contact</h2>
+        </div>
+        <p class="section-note">Click the buttons to copy my contact information.</p>
+      </div>
+
+      <div class="contact">
+        <article class="card">
+          <h3>Email</h3>
+          <p>Best for academic, project, and formal contact.</p>
+          <div class="contact-row">
+            <span id="emailText">yuxuan.shu24@student.xjtlu.edu.cn</span>
+            <button class="copy" data-copy="yuxuan.shu24@student.xjtlu.edu.cn">Copy</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Phone</h3>
+          <p>For direct contact. Consider using this carefully on a public website.</p>
+          <div class="contact-row">
+            <span id="phoneText">+86 18174582071</span>
+            <button class="copy" data-copy="+86 18174582071">Copy</button>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
 
   <footer>
-    © 2026 Jalex Shu
+    © 2026 Jalex Shu · Built with HTML, CSS, and JavaScript · Hosted on Vercel
   </footer>
 
+  <script>
+    const stars = document.getElementById("stars");
+    for (let i = 0; i < 54; i++) {
+      const s = document.createElement("span");
+      s.className = "star";
+      s.style.left = Math.random() * 100 + "%";
+      s.style.animationDuration = 8 + Math.random() * 16 + "s";
+      s.style.animationDelay = Math.random() * -18 + "s";
+      s.style.opacity = 0.18 + Math.random() * 0.42;
+      stars.appendChild(s);
+    }
+
+    const lines = [
+      "I like algebra, optimization, AI, and beautiful systems.",
+      "I turn math notes, language learning, and MV ideas into projects.",
+      "A small homepage today. A real portfolio tomorrow."
+    ];
+    let lineIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+    const typed = document.getElementById("typed");
+
+    function typeLoop() {
+      const current = lines[lineIndex];
+      if (!deleting) {
+        typed.textContent = current.slice(0, charIndex + 1);
+        charIndex++;
+        if (charIndex === current.length) {
+          deleting = true;
+          setTimeout(typeLoop, 1300);
+          return;
+        }
+      } else {
+        typed.textContent = current.slice(0, charIndex - 1);
+        charIndex--;
+        if (charIndex === 0) {
+          deleting = false;
+          lineIndex = (lineIndex + 1) % lines.length;
+        }
+      }
+      setTimeout(typeLoop, deleting ? 34 : 54);
+    }
+    typeLoop();
+
+    const themeBtn = document.getElementById("themeBtn");
+    themeBtn.addEventListener("click", () => {
+      document.body.classList.toggle("light");
+      themeBtn.textContent = document.body.classList.contains("light") ? "☀️ Theme" : "🌙 Theme";
+    });
+
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const projectCards = document.querySelectorAll(".project");
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        filterButtons.forEach((b) => b.classList.remove("active"));
+        button.classList.add("active");
+        const filter = button.dataset.filter;
+        projectCards.forEach((card) => {
+          card.style.display = filter === "all" || card.dataset.type === filter ? "flex" : "none";
+        });
+      });
+    });
+
+    const toast = document.getElementById("toast");
+    document.querySelectorAll(".copy").forEach((button) => {
+      button.addEventListener("click", async () => {
+        await navigator.clipboard.writeText(button.dataset.copy);
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 1200);
+      });
+    });
+  </script>
 </body>
 </html>
